@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import SignIn from './user/SignIn'
 import SignUp from './user/SignUp'
+import CategoryList from './quiz/CategoryList'
 import {BrowserRouter as Router, Route, Routes, Link} from "react-router-dom"
 import Axios from 'axios'
 import jwt_decode from 'jwt-decode'
@@ -68,17 +69,18 @@ export default function App() {
   const errMessage = message ? (<div className='alert alert-success'>{message}</div>) : null
 
   return (
+    <>
     <Router>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a className="navbar-brand" href="#">Quiz Stack</a>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+          <Link className="navbar-brand" to="/">Quiz Stack</Link>
             <div className="collapse navbar-collapse" id="navbarsExample05">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <Link className='nav-link' to="/">Home</Link>
-                </li>
               {isAuth ? (
                 <>
+                  <li className="nav-item active">
+                    <Link className='nav-link' to="/">Home</Link>
+                  </li>
                   <li className="nav-item active">
                       <Link className='nav-link' to="#">My Profile</Link>
                   </li>
@@ -102,10 +104,12 @@ export default function App() {
         {errMessage}
       </div>
       <Routes>
-          <Route path="/" element={ isAuth ? null : null}></Route>
+          <Route path="/" element={ isAuth ? <CategoryList/> : <CategoryList/>}></Route>
           <Route path="/signup" element={<SignUp signUp={signUpHandler} />}></Route>
           <Route path="/signin" element={ isAuth ? null : <SignIn signIn={signInHandler}/>}></Route>
         </Routes>
     </Router>
+    </>
+    
   )
 }
