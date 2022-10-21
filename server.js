@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 require("dotenv").config();
 
-
-
 // INTIALIZE
 const app = express();
 
@@ -27,9 +25,13 @@ app.use(session({
 
 // IMPORT ROUTES
 const authRouter = require('./routes/auth');
+const categoriesRouter = require('./routes/categories');
+const questionsRouter = require('./routes/questions');
 
 // MOUNT ROUTES
 app.use('/', authRouter);
+app.use('/', categoriesRouter);
+app.use('/', questionsRouter);
 
 // PORT
 const PORT = process.env.PORT;
