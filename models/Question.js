@@ -6,27 +6,15 @@ const questionSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    choiceA: {
-        type: String,
-        required: true,
-    },
-    choiceB: {
-        type: String,
-        required: true,
-    },
-    choiceC: {
-        type: String,
-        required: true,
-    },
-    choiceD: {
-        type: String,
+    choices: {
+        type: Array,
         required: true,
     },
     answer: {
         type: String,
         required: true,
     },
-    categories: [{
+    category: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
     }]

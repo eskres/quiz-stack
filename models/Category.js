@@ -11,7 +11,7 @@ const categorySchema = mongoose.Schema({
         required: true,
         // unique: true
     },
-    quizQuestion: [{
+    question: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question'
     }]
