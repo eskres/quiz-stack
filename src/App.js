@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import SignIn from './user/SignIn'
 import SignUp from './user/SignUp'
 import CategoryList from './quiz/CategoryList'
+import CategoryQuestions from './quiz/CategoryQuestions'
 import {BrowserRouter as Router, Route, Routes, Link} from "react-router-dom"
 import Axios from 'axios'
 import jwt_decode from 'jwt-decode'
@@ -82,6 +83,9 @@ export default function App() {
                     <Link className='nav-link' to="/">Home</Link>
                   </li>
                   <li className="nav-item active">
+                    <Link className='nav-link' to="/quiz">Quiz</Link>
+                  </li>
+                  <li className="nav-item active">
                       <Link className='nav-link' to="#">My Profile</Link>
                   </li>
                   <li>
@@ -104,10 +108,12 @@ export default function App() {
         {errMessage}
       </div>
       <Routes>
-          <Route path="/" element={ isAuth ? <CategoryList/> : <CategoryList/>}></Route>
+          <Route path="/" element={ isAuth ? null : null}></Route>
           <Route path="/signup" element={<SignUp signUp={signUpHandler} />}></Route>
           <Route path="/signin" element={ isAuth ? null : <SignIn signIn={signInHandler}/>}></Route>
-        </Routes>
+          <Route path="/quiz" element={ isAuth ? <CategoryList/> : <CategoryList/>}></Route>
+          <Route path="/quiz/:id" element={<CategoryQuestions/>}></Route>
+      </Routes>
     </Router>
     </>
     
