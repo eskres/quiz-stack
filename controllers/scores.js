@@ -1,5 +1,5 @@
 const {Score} = require("../models/Score");
-const {User} = require("../models/User");
+const {User} = require("../models/Used");
 
 
 // // CREATE
