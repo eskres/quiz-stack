@@ -1,5 +1,5 @@
 // Require User Model
-const User = require("../models/User");
+const {User} = require("../models/User");
 
 // Require bcrypt for hashing
 const bcrypt = require('bcrypt');
@@ -49,6 +49,7 @@ exports.auth_signin_post = async(req, res) => {
             (err, token) => {
                 if(err) throw err;
                 res.json({token}).status(200);
+                res.redirect('/quiz')
             }
         )
     }
@@ -56,4 +57,14 @@ exports.auth_signin_post = async(req, res) => {
         console.log(error)
         res.json({"message": "Sign in failed"}).status(400);
     }
+}
+
+exports.auth_show_get = (req, res) => {
+    User.findById(req.query.id)
+    .then(user => {
+        res.json({user})
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }

@@ -11,6 +11,10 @@ const categorySchema = mongoose.Schema({
         required: true,
         // unique: true
     },
+    icon: {
+        type: String,
+        required: true,
+    },
     question: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Question'
