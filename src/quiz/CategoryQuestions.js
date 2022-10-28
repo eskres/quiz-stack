@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom"
 import Axios from 'axios';
 import Choices from './Choices';
 import Answer from './Answer';
+import Pagination from './Pagination';
 
 export default function CategoryQuestions(props) {
 
@@ -11,6 +12,7 @@ export default function CategoryQuestions(props) {
   const [questions, setQuestions] = useState([]);
   const [choices, setChoices] = useState([]);
   const [answer, setAnswer] = useState("");
+  const [score, setScore] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0)
   const [maxQuestionIndex, setMaxQuestionIndex] = useState()
 
@@ -19,7 +21,7 @@ export default function CategoryQuestions(props) {
     }, [])
   useEffect(() => {
       stageQuestion(questions)
-    }, [questions])
+    }, [questions, questionIndex])
 
   function shuffle(array){
     for(let i = array.length-1; i > 0; i--){
@@ -36,6 +38,7 @@ export default function CategoryQuestions(props) {
       shuffle(q[questionIndex].choices)
       newChoices = q[questionIndex].choices
       setChoices(newChoices);
+      setAnswer("");
       setLoading(false);
     }
   }
@@ -45,7 +48,7 @@ export default function CategoryQuestions(props) {
       .then(response => {
         shuffle(response.data.questions);
         setQuestions(response.data.questions);
-        setMaxQuestionIndex(response.data.questions.length)
+        setMaxQuestionIndex(response.data.questions.length-1)
       })
       .catch(error => {
           console.log("Error retrieving questions");
@@ -54,51 +57,64 @@ export default function CategoryQuestions(props) {
 
   const answerHandler = (e) => {
     let finalAnswer = {...answer};
-    e === questions[questionIndex].answer ?  finalAnswer="correct" : finalAnswer="incorrect";
+    if(e === questions[questionIndex].answer){
+      finalAnswer="correct";
+    } else {
+      finalAnswer="incorrect";
+    }
     setAnswer(finalAnswer);
   }
-
+  
   const paginationHandler = (e) => {
+    let newScore = score;
     let newQuestion = {...questionIndex}
-    if (e === "next" && questionIndex !== (maxQuestionIndex-1)) {
+    if (e === "next" && questionIndex !== maxQuestionIndex) {
+      if(answer === "correct"){
+        newScore++;
+      }
       newQuestion = questionIndex + 1;
       setQuestionIndex(newQuestion);
-    } else if (questionIndex !== 0) {
+    } else if (e === "prev" && questionIndex !== 0) {
+      if(newScore > 0){
+        newScore--;
+      }
       newQuestion = questionIndex - 1;
       setQuestionIndex(newQuestion);
     }
+    setScore(newScore);
   }
 
   return (
     <> 
       {loading && !choices[0] ? (
-        <div className="container">
-          <div className="spinner-border" role="status">
+        <div className="row justify-content-center">
+          <div className="spinner-border text-light" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       ) : (
-        <div className="container">
+        <div className="container" id='quiz'>
+            <div className="progress mb-3">
+              <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-label="Animated striped example" aria-valuenow={questionIndex} aria-valuemin="0" aria-valuemax={maxQuestionIndex} style={{width: (100/(maxQuestionIndex+1))*questionIndex + "%"}}></div>
+            </div>
           <div className='row justify-content-center'>
-            <div class="col-2">
+            <div className="col-2 text-nowrap">
+              <h5>Your score is: {score}</h5>
+            </div>
+          </div>
+          <div className='row justify-content-center'>
+            <div className="col-12 text-center text-wrap">
               <h1 className='m-3'>{questions[questionIndex].question}</h1>
             </div>
           </div>
           <div className='row justify-content-center'>
-            <div className="col-8">
-              <div className="btn-group-vertical" role="group" aria-label="Large button group">
-                <Choices choices={choices} answerHandler={answerHandler}/>
+            <div className="col-10" >
+              <div className="btn-group-vertical m-3" role="group" aria-label="Large button group">
+                <Choices choices={choices} answerHandler={answerHandler} questionIndex={questionIndex}/>
               </div>
             </div>
           </div>
-          <div className="row justify-content-evenly">
-            <div className='col-2'>
-              <button class="btn btn-outline-dark px-5 m-3" type="button" onClick={() => {paginationHandler("prev")}}>Previous</button>
-            </div>
-            <div className='col-2'>
-              <button class="btn btn-outline-dark px-5 m-3" type="button" onClick={() => {paginationHandler("next")}}>Next</button>
-            </div>
-          </div>
+          <Pagination paginationHandler={paginationHandler} scoreHandler={props.scoreHandler} id={id} score={score} user={props.user} questionIndex={questionIndex} maxQuestionIndex={maxQuestionIndex}/>
           <Answer answer={answer} question={questions[questionIndex]}/>
         </div>
       )}

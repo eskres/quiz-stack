@@ -27,10 +27,12 @@ export default function CategoryList() {
     ))
 
   return (
-    <div className='container'>
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-            {allCategories}
+        <div class="row justify-content-center">
+            <div className="col-10">
+                <div className="row row-cols-1 row-cols-md-3 g-5">
+                    {allCategories}
+                </div>
+            </div>
         </div>
-    </div>
   )
 }

@@ -3,9 +3,12 @@ import SignIn from './user/SignIn'
 import SignUp from './user/SignUp'
 import CategoryList from './quiz/CategoryList'
 import CategoryQuestions from './quiz/CategoryQuestions'
-import {BrowserRouter as Router, Route, Routes, Link} from "react-router-dom"
+import {BrowserRouter as Router, Route, Routes, Link, Redirect} from "react-router-dom"
 import Axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import Home from './Home'
+import Footer from './Footer'
+import Profile from './user/Profile'
 
 export default function App() {
 
@@ -67,54 +70,64 @@ export default function App() {
     setMessage("Signed out successfully");
   }
 
+  const scoreHandler = (user, score, category) => {
+    Axios.post("/score/create/", {user: user, score: score, category: category })
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error)
+    });
+  }
+
   const errMessage = message ? (<div className='alert alert-success'>{message}</div>) : null
 
   return (
     <>
+    <div className='container bg-transparent'>
     <Router>
       <div>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <nav className="navbar navbar-expand-lg mb-5">
           <Link className="navbar-brand" to="/">Quiz Stack</Link>
-            <div className="collapse navbar-collapse" id="navbarsExample05">
-              <ul className="navbar-nav mr-auto">
+            <div className="navbar-nav collapse navbar-collapse justify-content-end" >
+
               {isAuth ? (
                 <>
-                  <li className="nav-item active">
-                    <Link className='nav-link' to="/">Home</Link>
-                  </li>
-                  <li className="nav-item active">
-                    <Link className='nav-link' to="/quiz">Quiz</Link>
-                  </li>
-                  <li className="nav-item active">
-                      <Link className='nav-link' to="#">My Profile</Link>
-                  </li>
-                  <li>
-                    <Link className='nav-link' to="/signout" onClick={onSignOutHandler}>Logout</Link>
-                  </li>
+                  <Link className='nav-link' to="/">Home</Link>
+                  <Link className='nav-link' to="/quiz">Quizzes</Link>
+                  <Link className='nav-link' to="/myProfile">My Profile</Link>
+                  <Link className='nav-link' to="/signout" onClick={onSignOutHandler}>Logout</Link>
                 </>
               ) : (
                 <>
-                  <li className="nav-item active">
-                    <Link className='nav-link' to="/signup">Sign Up</Link>
-                  </li>
-                  <li className="nav-item active">
-                    <Link className='nav-link' to="/signin">Sign In</Link>
-                  </li>
+                  <div class="nav-item dropstart">
+                    <a type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                      Sign Up
+                    </a>
+                    <SignUp signUp={signUpHandler}/>
+                  </div>
+                  <div class="nav-item dropstart">
+                    <a type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                      Sign In
+                    </a>
+                    <SignIn signIn={signInHandler}/>
+                  </div>
                 </>
               )}
-            </ul>
           </div>
         </nav>
         {errMessage}
+        
       </div>
       <Routes>
-          <Route path="/" element={ isAuth ? null : null}></Route>
-          <Route path="/signup" element={<SignUp signUp={signUpHandler} />}></Route>
-          <Route path="/signin" element={ isAuth ? null : <SignIn signIn={signInHandler}/>}></Route>
-          <Route path="/quiz" element={ isAuth ? <CategoryList/> : <CategoryList/>}></Route>
-          <Route path="/quiz/:id" element={<CategoryQuestions/>}></Route>
+          <Route path="/" element={ isAuth ? <Home/> : <Home/>}></Route>
+          <Route path="/myProfile" element={ isAuth ? <Profile user={user.user}/> : null}></Route>
+          <Route path="/quiz" element={ isAuth ? <CategoryList/> : null }></Route>
+          <Route path="/quiz/:id" element={<CategoryQuestions scoreHandler={scoreHandler} user={user.user}/>}></Route>
       </Routes>
     </Router>
+    </div>
+    {/* <Footer/> */}
     </>
     
   )

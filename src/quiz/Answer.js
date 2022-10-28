@@ -5,14 +5,25 @@ export default function Answer(props) {
 
     <div>
       { props.answer === "correct" ? (
-        <>
-          <h1>CORRECT!!!</h1>
-        </>
+      <div className='container justify-content-center'>
+        <div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Well done!</h4>
+          <hr></hr>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+      </div>
       ) : (
-        <>
-          {props.answer !== "" && <h1>Better luck next time!</h1>}
-        </>
+        <div className='container justify-content-center'>
+          {props.answer !== "" &&
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Good try! The correct answer was "{props.question.answer}"</h4>
+            <hr></hr>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+          }
+        </div>
       )}
+      
     </div>
 
   )
