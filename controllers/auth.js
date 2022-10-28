@@ -1,5 +1,5 @@
 // Require User Model
-const {User} = require("../models/Used");
+const {User} = require("../models/User");
 
 // Require bcrypt for hashing
 const bcrypt = require('bcrypt');
