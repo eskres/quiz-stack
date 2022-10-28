@@ -39,10 +39,9 @@ app.use('/', scoresRouter);
 // PORT
 const PORT = process.env.PORT;
 
-app.get("/", function(req, res){
+app.get("/*", function(req, res){
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
-
 
 // DATABASE
 mongoose.connect(process.env.MONGODB_URL,
