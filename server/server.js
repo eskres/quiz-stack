@@ -52,7 +52,7 @@ mongoose.connect(process.env.MONGODB_URL,
     }
 );
 
-app._router(cors());
+app(cors());
 
 app.listen(PORT, (err) => {
     if (err) {
