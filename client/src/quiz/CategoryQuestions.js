@@ -6,6 +6,7 @@ import Answer from './Answer';
 import Pagination from './Pagination';
 
 export default function CategoryQuestions(props) {
+  const axiosInstance = axios.create({baseURL: process.env.REACT_APP_API_URL})
 
   const [loading, setLoading] = useState(true);
   const {id} = useParams();
@@ -44,7 +45,7 @@ export default function CategoryQuestions(props) {
   }
 
   const getQuestions = (id) => {
-      Axios.get(`/questions/category?id=${id}`)
+      axiosInstance.get(`/questions/category?id=${id}`)
       .then(response => {
         shuffle(response.data.questions);
         setQuestions(response.data.questions);

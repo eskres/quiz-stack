@@ -11,6 +11,7 @@ import Footer from './Footer'
 import Profile from './user/Profile'
 
 export default function App() {
+  const axiosInstance = axios.create({baseURL: process.env.REACT_APP_API_URL})
 
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
@@ -36,7 +37,7 @@ export default function App() {
   }, [])
 
   const signUpHandler = (user) => {
-    Axios.post("auth/signup", user)
+    axiosInstance.post("auth/signup", user)
     .then(response => {
       console.log(response);
     })
@@ -46,7 +47,7 @@ export default function App() {
   }
 
   const signInHandler = (cred) => {
-    Axios.post("auth/signin", cred)
+    axiosInstance.post("auth/signin", cred)
     .then(response => {
       console.log(response.data.token);
 
@@ -71,7 +72,7 @@ export default function App() {
   }
 
   const scoreHandler = (user, score, category) => {
-    Axios.post("/score/create/", {user: user, score: score, category: category })
+    axiosInstance.post("/score/create/", {user: user, score: score, category: category })
     .then(response => {
       console.log(response);
     })

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path')
 const flash = require('connect-flash');
 require("dotenv").config();
+const cors = require('cors');
 
 // INTIALIZE
 const app = express();
@@ -11,7 +12,7 @@ const app = express();
 // USE DEPENDANCIES
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'build')));
-app.use(express.json())
+app.use(express.json());
 
 
 // EXPRESS SESSION
@@ -40,16 +41,18 @@ app.use('/', scoresRouter);
 const PORT = process.env.PORT;
 
 app.get("/*", function(req, res){
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
 // DATABASE
 mongoose.connect(process.env.MONGODB_URL,
     { useNewUrlParser: true, useUnifiedTopology: true },
     () => {
-        console.log("MongoDB connected!!!")
+        console.log("MongoDB connected!!!");
     }
 );
+
+app._router(cors());
 
 app.listen(PORT, (err) => {
     if (err) {

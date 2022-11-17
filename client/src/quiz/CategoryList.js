@@ -3,6 +3,7 @@ import Axios from 'axios'
 import CategoryCard from './CategoryCard.js'
 
 export default function CategoryList() {
+    const axiosInstance = axios.create({baseURL: process.env.REACT_APP_API_URL})
 
     const [categories, setCategories] = useState([]);
 
@@ -11,7 +12,7 @@ export default function CategoryList() {
       }, [])
 
     const getCategories = () => {
-        Axios.get("categories")
+        axiosInstance.get("categories")
         .then(response => {
             setCategories(response.data.categories)
         })
