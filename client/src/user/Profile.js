@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Axios from 'axios'
+import axios from 'axios'
 
 export default function Profile(props) {
     const axiosInstance = axios.create({baseURL: process.env.REACT_APP_API_URL})

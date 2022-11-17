@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Axios from 'axios'
+import axios from 'axios'
 import CategoryCard from './CategoryCard.js'
 
 export default function CategoryList() {

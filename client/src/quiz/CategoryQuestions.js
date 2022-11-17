@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from "react-router-dom"
-import Axios from 'axios';
+import axios from 'axios';
 import Choices from './Choices';
 import Answer from './Answer';
 import Pagination from './Pagination';
