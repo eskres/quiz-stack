@@ -149,6 +149,9 @@ This project gave me my biggest boost in confidence so far and I feel that I was
 ---
 ## Key Learnings
 
+On reflection a key learning point from this project was the importance of having a clear vision, oversight of the end goal and how to reach it.  As this project was conducted independently I had to work on both the front-end and back-end, giving me a greater understanding of the required progression through each stage of the sequence, as well as the reasoning behind this. It was not possible in this project, as in previous team projects, to work on both front and back-end simultaneously. This meant I had to be methodical in my approach, something I have come to understand is a strength of mine. 
+
+In addition, I developed in terms of both confidence and capability in my working knowledge of React. Specifically, I have an enhanced understanding of React’s hooks such as useEffect and useState. 
 
 ---
 ## Bugs
