@@ -2,7 +2,7 @@
 
 Completed during my 12th week on General Assembly’s Software Engineering Immersive, Quiz Stack is an application for junior developers (such as myself) to test their knowledge and use as a revision tool. I felt this idea would be beneficial not only to have use of such a  tool but to build this tool in order to increase my own opportunities for learning. This project was built using MongoDB, Express, React, Node.js, JavaScript, jQuery, Bootstrap, HTML and CSS
 
-**Quiz Stack is deployed at https://quiz-stack.skreslett.com **
+**Quiz Stack is deployed at https://quiz-stack.skreslett.com**
 
 You can experience Quiz Stack by visiting the link above. Quiz Stack does not require the installation of any additional software. You can visit the website and try the quizzes by signing in using the following credentials:
 - Username: test@skreslett.com
