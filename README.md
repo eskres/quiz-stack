@@ -1,5 +1,7 @@
 # Quiz Stack
 
+![Quiz Stack Homepage](https://i.imgur.com/3iT7lGS.png)
+
 Completed during my 12th week on General Assembly’s Software Engineering Immersive, Quiz Stack is an application for junior developers (such as myself) to test their knowledge and use as a revision tool. I felt this idea would be beneficial not only to have use of such a  tool but to build this tool in order to increase my own opportunities for learning. This project was built using MongoDB, Express, React, Node.js, JavaScript, jQuery, Bootstrap, HTML and CSS
 
 **Quiz Stack is deployed at https://quiz-stack.skreslett.com**
@@ -61,9 +63,8 @@ Our brief was to create a web application of our choice from scratch in 7 days w
 
 I had been thinking about my idea for this project for a while so I had a pretty clear vision for it from the outset. My intention was to build a tool that junior developers such as myself could use to revise prior learning and gain confidence in their recall of taught concepts and skills. Consequently, I did not create any wireframes for my front end and I started my planning by working on an ERD using Miro before creating a Kanban board using Trello.
 
-# INSERT PLANNING
-
-
+#### ERD
+![ERD](https://i.imgur.com/qWXKjTq.jpg)
 
 ---
 ## Build Process
