@@ -76,10 +76,7 @@ I started by creating the project’s file and folder structure, configuring ser
 I then created my Models and APIs with full CRUD functionality for the quiz questions and their relative categories. Once the back-end was ready I started working on my React components whilst being mindful of how the user would traverse the site and what data would be needed from my MongoDB collection for each step of the user experience.
 
 ### Stage 3
-I started working on implementing an Optical Character Recognition image to text API that Dan found during some early research as well as drafting the nutrition API request while Dan started working on the authorisation functionality.
-
-### Stage 4
-I moved on to styling which I did using mostly Bootstrap. I then started working on the ‘My Profile’ page where I wanted users to be able to see their saved scores. Unfortunately, I ran out of time and the page is displaying the quiz id rather than name and also requires some further styling.
+I moved on to styling which I did using mostly Bootstrap. I then started working on the ‘My Profile’ page where I wanted users to be able to see their saved scores. Unfortunately, I ran out of time and the page is displaying the quiz ID, rather than name and also requires some further styling.
 
 Below you will find some code snippets from the stages described above.
 
