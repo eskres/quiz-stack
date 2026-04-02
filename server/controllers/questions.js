@@ -4,22 +4,20 @@ const {Category} = require("../models/Category");
 
 // // CREATE
 
-exports.question_create_post = (req, res) => {
-    let question = new Question(req.body);
-    question.save()
-    .then(() => {
-        req.body.category.forEach(category => {
-            Category.findById(category, (error, category) => {
-                category.question.push(question);
-                category.save();
-            })
-        });
+exports.question_create_post = async (req, res) => {
+    try {
+        let question = new Question(req.body);
+        await question.save();
+        for (const categoryId of req.body.category) {
+            const category = await Category.findById(categoryId);
+            category.question.push(question);
+            await category.save();
+        }
         res.json({question});
-    }) 
-    .catch((err) => {
+    } catch(err) {
         console.log(err);
         res.send("Please try again later!!!");
-    })
+    }
 }
 
 // // READ
@@ -61,21 +59,18 @@ exports.question_category_get = (req, res) => {
 // // UPDATE
 
 // Question Update API
-exports.question_update_put = (req, res) => {
-    Question.findByIdAndUpdate(req.body.id, req.body, {new: true})
-    .then((question) => {
-        req.body.category.forEach(category => {
-            Category.findById(category, (error, category) => {
-                category.question.push(question._id);
-                console.log(category.question);
-                category.save();
-            })
-        });
-        res.json({question})
-    })
-    .catch(err => {
-        console.log(err)
-    })
+exports.question_update_put = async (req, res) => {
+    try {
+        const question = await Question.findByIdAndUpdate(req.body.id, req.body, {new: true});
+        for (const categoryId of req.body.category) {
+            const category = await Category.findById(categoryId);
+            category.question.push(question._id);
+            await category.save();
+        }
+        res.json({question});
+    } catch(err) {
+        console.log(err);
+    }
 }
 
 // // DELETE
