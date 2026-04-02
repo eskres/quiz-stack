@@ -40,7 +40,7 @@ app.use('/', scoresRouter);
 // PORT
 const PORT = process.env.PORT;
 
-app.get("/*", function(req, res){
+app.get("/{*splat}", function(req, res){
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 

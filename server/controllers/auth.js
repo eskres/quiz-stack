@@ -28,12 +28,12 @@ exports.auth_signin_post = async(req, res) => {
         let user = await User.findOne({emailAddress});
 
         if(!user)
-        {return res.json({ "message": "Account not found"}).status(400)}
+        {return res.status(400).json({ "message": "Account not found"})}
 
         const isMatch = await bcrypt.compareSync(password, user.password);
 
         if(!isMatch){
-            return res.json({"message": "Password incorrect"}).status(400)
+            return res.status(400).json({"message": "Password incorrect"})
         }
 
         const payload = {
@@ -48,14 +48,13 @@ exports.auth_signin_post = async(req, res) => {
             { expiresIn: "20h"},
             (err, token) => {
                 if(err) throw err;
-                res.json({token}).status(200);
-                res.redirect('/quiz')
+                res.status(200).json({token});
             }
         )
     }
     catch(error){
         console.log(error)
-        res.json({"message": "Sign in failed"}).status(400);
+        res.status(400).json({"message": "Sign in failed"});
     }
 }
 
