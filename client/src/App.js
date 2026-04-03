@@ -5,7 +5,7 @@ import CategoryList from './quiz/CategoryList'
 import CategoryQuestions from './quiz/CategoryQuestions'
 import {BrowserRouter as Router, Route, Routes, Link, Redirect} from "react-router-dom"
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
+import { jwtDecode as jwt_decode } from 'jwt-decode'
 import Home from './Home'
 import Footer from './Footer'
 import Profile from './user/Profile'
