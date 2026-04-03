@@ -10,6 +10,9 @@
 
 # production
 /build
+client/build
+quiz-stack-back-end/
+server/build
 
 # misc
 .DS_Store

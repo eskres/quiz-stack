@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    container_name: quiz-stack
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.quiz-stack.rule=Host(`quiz-stack.skreslett.com`)"
+      - "traefik.http.routers.quiz-stack.entrypoints=websecure"
+      - "traefik.http.routers.quiz-stack.tls=true"
+      - "traefik.http.routers.quiz-stack.middlewares=security-headers@file,rate-limit@file,quiz-stack-csp@docker"
+      - "traefik.http.services.quiz-stack.loadbalancer.server.port=5000"
+      - "traefik.http.middlewares.quiz-stack-csp.headers.customResponseHeaders.Content-Security-Policy=default-src 'self'; script-src 'self' https://www.googletagmanager.com https://kit.fontawesome.com https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; font-src 'self' https://ka-f.fontawesome.com data:; img-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://ka-f.fontawesome.com; frame-ancestors 'none';"
+
+networks:
+  proxy:
+    name: traefik_proxy
+    external: true

@@ -40,17 +40,14 @@ app.use('/', scoresRouter);
 // PORT
 const PORT = process.env.PORT;
 
-app.get("/*", function(req, res){
+app.get("/{*splat}", function(req, res){
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 
 // DATABASE
-mongoose.connect(process.env.MONGODB_URL,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    () => {
-        console.log("MongoDB connected!!!");
-    }
-);
+mongoose.connect(process.env.MONGODB_URL)
+    .then(() => console.log("MongoDB connected!!!"))
+    .catch(err => console.error("MongoDB connection error:", err));
 
 // app(cors());
 
