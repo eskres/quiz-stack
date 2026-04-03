@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    container_name: quiz-stack
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.quiz-stack.rule=Host(`quiz-stack.skreslett.com`)"
+      - "traefik.http.routers.quiz-stack.entrypoints=websecure"
+      - "traefik.http.routers.quiz-stack.tls=true"
+      - "traefik.http.routers.quiz-stack.middlewares=security-headers@file,rate-limit@file"
+      - "traefik.http.services.quiz-stack.loadbalancer.server.port=5000"
+
+networks:
+  proxy:
+    name: traefik_proxy
+    external: true
