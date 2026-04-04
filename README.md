@@ -24,6 +24,7 @@ This project was completed independently within a week.
 | [Key Learnings](#Key-Learnings) |
 | [Bugs](#Bugs) |
 | [Future Improvements](#Future-Improvements) |
+| [2026 Changes](#2026-Changes) |
 
 ---
 ## Technologies Used
@@ -158,5 +159,18 @@ At this stage, no bugs have been detected.
 ---
 ## Future Improvements
 I would like to make the site fully responsive and complete the ‘My Profile’ section. I also think it would be a nice touch to add a confetti animation when a correct answer is given.
+
+---
+## 2026 Changes
+
+Re-deploying this project in 2026 I wanted to address potential security issues, update the dependencies, and bring the deployment up to a standard I would be comfortable hosting on my server. Below is a summary of the changes made:
+
+- **Dependency updates** — Updated all dependencies to their latest versions. Several were major version upgrades which required code changes e.g. migrating Express to v5, Mongoose to v9, and React to v19.
+
+- **Security improvements** — Added rate limiting to the authentication endpoints and configured a Content Security Policy with security headers handled by Traefik.
+
+- **Deployment** — Migrated from Heroku to a Docker container behind a Traefik reverse proxy.
+
+- **General tidying** — Removed unused imports and dead dependencies.
 
 ---
